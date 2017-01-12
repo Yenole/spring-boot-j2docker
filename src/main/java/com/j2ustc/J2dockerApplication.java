@@ -1,5 +1,6 @@
 package com.j2ustc;
 
+import com.spotify.docker.client.DefaultDockerClient;
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
@@ -35,7 +36,13 @@ public class J2dockerApplication extends SpringBootServletInitializer {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
 
+
+    @Bean(name = "docker")
+    public DefaultDockerClient dockerClient() {
+        DefaultDockerClient dockerClient = DefaultDockerClient.builder().uri("http://192.168.1.109:4232").build();
+        return dockerClient;
     }
 
     @Bean(name = "beetlViewResolver")
